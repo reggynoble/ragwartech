@@ -52,6 +52,7 @@ def create_contact(
 @router.post(
     "/chat",
     response_model=ChatResponse,
+    response_model_exclude_none=True,
 )
 def chat(
     payload: ChatRequest,

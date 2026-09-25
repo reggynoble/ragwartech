@@ -1,6 +1,14 @@
+from typing import TypedDict
+
 from .retriever import retrieve
 
-EVALUATION_CASES = [
+
+class EvaluationCase(TypedDict):
+    query: str
+    expected_sources: set[str]
+
+
+EVALUATION_CASES: list[EvaluationCase] = [
     # ---------------------------------------------------------
     # Direct factual
     # ---------------------------------------------------------
@@ -105,11 +113,11 @@ EVALUATION_CASES = [
     # ---------------------------------------------------------
     {
         "query": "What is the weather today?",
-        "expected_sources": {},
+        "expected_sources": set(),
     },
     {
         "query": "Who is the president of the United States?",
-        "expected_sources": {},
+        "expected_sources": set(),
     },
     # ---------------------------------------------------------
     # Ambiguous
@@ -164,7 +172,7 @@ def evaluate_case(
 
 
 def evaluate(
-    cases: list[dict] | None = None,
+    cases: list[EvaluationCase] | None = None,
     limit: int = 3,
 ) -> list[dict]:
     if cases is None:
@@ -219,7 +227,7 @@ def reciprocal_rank(
 
 
 def mean_reciprocal_rank(
-    cases: list[dict] | None = None,
+    cases: list[EvaluationCase] | None = None,
     limit: int = 3,
 ) -> float:
     if cases is None:
@@ -343,7 +351,8 @@ if __name__ == "__main__":
         sum(result["hit"] for result in results) / len(results) if results else 0.0
     )
 
-    mrr = mean_reciprocal_rank(results)
+    results = evaluate()
+    mrr = mean_reciprocal_rank_results(results)
 
     duplicate_sources = sum(
         len(result["retrieved_sources"]) - len(set(result["retrieved_sources"]))
