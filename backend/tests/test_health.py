@@ -83,7 +83,7 @@ def test_create_contact_rejects_invalid_email():
 def test_chat(monkeypatch):
 
     monkeypatch.setattr(
-        "app.routes.ai_service.chat",
+        "app.routes.chat_service.chat",
         lambda message: {
             "response": ("Python and FastAPI are used for backend development."),
             "sources": ["skills.md"],
@@ -108,7 +108,7 @@ def test_chat(monkeypatch):
 def test_chat_unknown_question(monkeypatch):
 
     monkeypatch.setattr(
-        "app.routes.ai_service.chat",
+        "app.routes.chat_service.chat",
         lambda message: {
             "response": (
                 "That information is not available in the portfolio knowledge base."
@@ -154,7 +154,7 @@ def test_chat_rejects_invalid_message_type():
     assert response.status_code == 422
 
 
-def test_chat_passes_message_to_ai_service(monkeypatch):
+def test_chat_passes_message_to_chat_service(monkeypatch):
 
     received = {}
 
@@ -167,7 +167,7 @@ def test_chat_passes_message_to_ai_service(monkeypatch):
         }
 
     monkeypatch.setattr(
-        "app.routes.ai_service.chat",
+        "app.routes.chat_service.chat",
         fake_chat,
     )
 

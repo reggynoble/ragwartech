@@ -13,7 +13,7 @@ def _documents():
     ]
 
 
-def test_ai_service_without_api_key(monkeypatch):
+def test_chat_service_without_api_key(monkeypatch):
     monkeypatch.setattr(
         "app.application.chat_service.settings.openai_api_key",
         "",
@@ -24,7 +24,7 @@ def test_ai_service_without_api_key(monkeypatch):
     assert service.client is None
 
 
-def test_ai_service_with_openai_api_key(monkeypatch):
+def test_chat_service_with_openai_api_key(monkeypatch):
     monkeypatch.setattr(
         "app.application.chat_service.settings.openai_api_key",
         "test-key",

@@ -2,7 +2,7 @@ from fastapi import APIRouter, Depends
 from sqlalchemy import text
 from sqlalchemy.orm import Session
 
-from .ai import ai_service
+from .application.chat_service import chat_service
 from .database import get_db
 from .models import ContactMessage
 from .schemas import (
@@ -57,4 +57,4 @@ def create_contact(
 def chat(
     payload: ChatRequest,
 ):
-    return ai_service.chat(payload.message)
+    return chat_service.chat(payload.message)
