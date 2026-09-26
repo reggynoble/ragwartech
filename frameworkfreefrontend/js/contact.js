@@ -1,6 +1,4 @@
-const API_URL =
-  "http://localhost:8000/api";
-
+import { API_URL } from "./api.js";
 
 export function initializeContact() {
 

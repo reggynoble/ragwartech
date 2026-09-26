@@ -26,7 +26,7 @@ def build_context(
     if not results:
         return ""
 
-    sections = []
+    sections: list[str] = []
     total_chars = 0
 
     for result in results[:limit]:

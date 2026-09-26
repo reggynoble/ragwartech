@@ -1,7 +1,8 @@
 from fastapi import APIRouter, Depends
+from sqlalchemy import text
 from sqlalchemy.orm import Session
 
-from .ai import ai_service
+from .application.chat_service import chat_service
 from .database import get_db
 from .models import ContactMessage
 from .schemas import (
@@ -15,7 +16,8 @@ router = APIRouter(prefix="/api")
 
 
 @router.get("/health")
-def health():
+def health(db: Session = Depends(get_db)):
+    db.execute(text("SELECT 1"))
 
     return {
         "status": "ok",
@@ -50,8 +52,9 @@ def create_contact(
 @router.post(
     "/chat",
     response_model=ChatResponse,
+    response_model_exclude_none=True,
 )
 def chat(
     payload: ChatRequest,
 ):
-    return ai_service.chat(payload.message)
+    return chat_service.chat(payload.message)

@@ -12,12 +12,12 @@ DATA_DIR.mkdir(parents=True, exist_ok=True)
 class Settings(BaseSettings):
     """Application settings loaded from environment variables."""
 
-    app_name: str = "Framework-FreeFE API"
+    app_name: str = "Portfolio AI/RAG API"
     app_version: str = "0.2.0"
 
     database_url: str = f"sqlite:///{DATA_DIR / 'portfolio.db'}"
 
-    cors_origins: str = "*"
+    cors_origins: str = ""
 
     # AI configuration
     ai_provider: str = "openai"

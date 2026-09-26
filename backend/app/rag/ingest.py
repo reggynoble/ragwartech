@@ -10,7 +10,7 @@ def load_markdown_documents() -> list[dict]:
     if not DATA_DIR.exists():
         return []
 
-    documents = []
+    documents: list[dict] = []
 
     for path in sorted(DATA_DIR.glob("*.md")):
         content = path.read_text(encoding="utf-8").strip()
@@ -33,8 +33,8 @@ def chunk_document(document: dict) -> list[dict]:
 
     lines = document["content"].splitlines()
 
-    chunks = []
-    current = []
+    chunks: list[list[str]] = []
+    current: list[str] = []
 
     for line in lines:
         if line.startswith("## ") and current:
@@ -46,7 +46,7 @@ def chunk_document(document: dict) -> list[dict]:
     if current:
         chunks.append(current)
 
-    results = []
+    results: list[dict] = []
 
     for index, lines in enumerate(chunks):
         content = "\n".join(lines).strip()

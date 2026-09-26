@@ -7,14 +7,21 @@ services:
     healthCheckPath: /api/health
 
     envVars:
+      # Application / AI configuration
       - key: AI_PROVIDER
         value: openai
 
       - key: AI_MODEL
         value: gpt-5.6-luna
 
+      # Production database
+      - key: DATABASE_URL
+        sync: false
+
+      # Secrets
       - key: OPENAI_API_KEY
         sync: false
 
+      # Frontend origin(s)
       - key: CORS_ORIGINS
-        sync: false
+        value: https://ragwartech.netlify.app

@@ -19,7 +19,6 @@ STOP_WORDS = {
     "when",
     "who",
     "use",
-    "used",
     "about",
     "tell",
     "me",
@@ -34,10 +33,7 @@ STOP_WORDS = {
     "tech",
     # Generic query-intent words.
     "tools",
-    "technology",
-    "technologies",
     "building",
-    "software",
     "kind",
     "type",
     "prefer",
@@ -46,7 +42,6 @@ STOP_WORDS = {
     "programming",
     "language",
 }
-
 
 QUERY_EXPANSIONS = {
     # Architecture / terminology.

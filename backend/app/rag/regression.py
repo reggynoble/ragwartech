@@ -1,5 +1,6 @@
 from .evaluation import (
     EVALUATION_CASES,
+    EvaluationCase,
     precision_at_k,
     recall_at_k,
     reciprocal_rank,
@@ -33,7 +34,7 @@ def retrieve_for_evaluation(query: str) -> list[dict]:
 
 
 def hit_rate(
-    results_by_case: list[tuple[dict, list[dict]]],
+    results_by_case: list[tuple[EvaluationCase, list[dict]]],
 ) -> float:
     """Calculate hit rate across evaluation cases."""
 
@@ -62,7 +63,7 @@ def hit_rate(
 
 
 def duplicate_rate(
-    results_by_case: list[tuple[dict, list[dict]]],
+    results_by_case: list[tuple[EvaluationCase, list[dict]]],
 ) -> float:
     """Calculate duplicate chunk rate across result lists."""
 
@@ -97,7 +98,7 @@ def duplicate_rate(
 def evaluate_retrieval() -> dict:
     """Run the complete deterministic retrieval regression."""
 
-    results_by_case = []
+    results_by_case: list[tuple[EvaluationCase, list[dict]]] = []
 
     for case in EVALUATION_CASES:
         results = retrieve_for_evaluation(case["query"])
@@ -108,9 +109,9 @@ def evaluate_retrieval() -> dict:
         (case, results) for case, results in results_by_case if case["expected_sources"]
     ]
 
-    recall_scores = []
-    precision_scores = []
-    reciprocal_ranks = []
+    recall_scores: list[float] = []
+    precision_scores: list[float] = []
+    reciprocal_ranks: list[float] = []
 
     for case, results in scored_cases:
         expected_sources = case["expected_sources"]

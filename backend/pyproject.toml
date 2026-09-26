@@ -9,3 +9,14 @@ select = ["E", "F", "I", "BLE", "B", "SIM", "PIE"]
 "app/ai.py" = ["BLE001"]
 "app/rag/regression.py" = ["BLE001"]
 "app/routes.py" = ["B008"]
+
+[tool.mypy]
+python_version = "3.12"
+mypy_path = "."
+ignore_missing_imports = true
+follow_imports = "silent"
+check_untyped_defs = true
+disallow_untyped_defs = true
+warn_return_any = true
+warn_unused_ignores = true
+exclude = '(^|/)(tests|\.venv|\.mypy_cache|\.ruff_cache)/'
